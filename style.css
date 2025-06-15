@@ -1,0 +1,15 @@
+body {
+    background-color: black;
+    color: white;
+}
+.cyan {
+    color: cyan;
+}
+.green {
+    color: green;
+}
+.profile-photo {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}
