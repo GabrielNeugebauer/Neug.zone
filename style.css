@@ -1,8 +1,9 @@
 body {
-    background: linear-gradient(#1a2f38, #000000);
-    min-height: 100vh;
+    /*background: linear-gradient(#1a2f38, #000000);
+    min-height: 100vh;*/
+    background-color: #1a2f38;
     color: white;
-}/*Degradê Bonitin*/
+}/*Degradê Bonitin*//*Esquece o degradê, o campo de input do js quebrava o layout*/
 .cyan {
     color: cyan;
 }
@@ -23,112 +24,95 @@ body {
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .red-bg {
     background-color: red;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .green-bg {
     background-color: green;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .yellow-bg {
     background-color: yellow;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .blue-bg {
     background-color: blue;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .magenta-bg {
     background-color: magenta;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .cyan-bg {
     background-color: cyan;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .white-bg {
     background-color: white;
     display: inline-block;
     width: 20px;
-    height: 20px;
-    border-radius: 3px;
-}
+    height: 20px;}
 .bright-black-bg {
     background-color: #555;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .bright-red-bg {
     background-color: #f00;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .bright-green-bg {
     background-color: #0f0;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .bright-yellow-bg {
     background-color: #ff0;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .bright-blue-bg {
     background-color: #00f;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .bright-magenta-bg {
     background-color: #f0f;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .bright-cyan-bg {
     background-color: #0ff;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .bright-white-bg {
     background-color: #fff;
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-radius: 3px;
 }
 .bold {
     font-weight: bold;
