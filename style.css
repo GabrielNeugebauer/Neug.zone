@@ -128,3 +128,35 @@ body {
     align-items: center;
     margin-top: 20px;
 }/*Alinhamento do texto*/
+#neofetch-template {
+    display: none;
+}/*Hide neofetch when necessary. USEI MUITO ISSO NO DEBUG*//*OBS: Na versão final, o neofetch inicia oculto no HTML, mas e é cerregado pelo JS*/
+.prompt {
+    display: flex;
+    align-items: center;
+}
+
+.prompt-text {
+    white-space: pre; /* Só pra garantir que o espaço vai ser mantido ;) */
+}
+
+#prompt-input {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    outline: none;
+    flex-grow: 1; /* Se tudo der certo, o input ocupa toda a linha */
+    padding-left: 5px; 
+}
+
+.output {
+    margin-left: 10px;
+    padding-bottom: 10px;
+}
+
+.directory {
+    color: cyan;
+    font-weight: bold;
+}
