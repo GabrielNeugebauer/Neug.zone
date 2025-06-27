@@ -5,6 +5,8 @@ body {
     color: white;
     font-family: 'Courier New', Courier, monospace;
 }/*Degradê Bonitin*//*Esquece o degradê, o campo de input do js quebrava o layout*/
+
+/* Cores do terminal */
 .cyan {
     color: cyan;
 }
@@ -20,6 +22,7 @@ body {
 .yellow {
     color: yellow;
 }
+/* Cores do teste de cor do neofetch */
 .black-bg {
     background-color: black;
     display: inline-block;
@@ -118,20 +121,29 @@ body {
 .bold {
     font-weight: bold;
 }
+/* Estilo da foto de perfil do neoftech */
 .profile-photo {
     width: 200px;
     height: 200px;
     border-radius: 50%;
 }
+/* Estilo padrão para fotos */
+.photo {
+    width: 200px;
+    height: 200px;
+}
+/* Estilo do container do neofetch */
 .neofetch {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-top: 20px;
-}/*Alinhamento do texto*/
+}
+
+/* Opção usada para esconder o template do neofetch */
 #neofetch-template {
     display: none;
-}/*Hide neofetch when necessary. USEI MUITO ISSO NO DEBUG*//*OBS: Na versão final, o neofetch inicia oculto no HTML, mas e é cerregado pelo JS*/
+}
 .prompt {
     display: flex;
     align-items: center;

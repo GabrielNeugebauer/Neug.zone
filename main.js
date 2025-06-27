@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const neofetchTemplate = document.getElementById('neofetch-template');
     let currentPath = '~';
 
-    // Objeto que fingimos ser o sistema de arquivos
+    // Objeto para simular o filesystem
     const fileSystem = {
         '~': {
             type: 'directory',
@@ -15,29 +15,52 @@ document.addEventListener('DOMContentLoaded', function() {
                     type: 'directory',
                     hidden: false,
                     children: {
-                        '.diretorio_secreto': { 
+                        '.diretorioSecreto': { 
                             type: 'directory',
                             hidden: true, 
                             children: {
-                                '.nao_entre': { 
+                                '.naoEntre': { 
                                     type: 'directory',
                                     hidden: true, 
                                     children: {
-                                        '.ultimo_aviso': { 
+                                        '.ultimoAviso': { 
                                             type: 'directory',
                                             hidden: true, 
                                             children: {
-                                                '.naoleia.txt': { type: 'file', hidden: true}
+                                                '.naoleia.txt': { 
+                                                    type: 'file', 
+                                                    hidden: true, 
+                                                    content: 'Já que você teve o trebalho de chegar aqui, vale uma nota 10 né?' 
+                                                }
                                             } 
                                         }
                                     }
                                 }
                             }
                         },
+                        'github': {
+                            type: 'directory',
+                            hidden: false,
+                            children: {
+                                'Under_construction_check_later.txt': { 
+                                    type: 'file', 
+                                    hidden: false, 
+                                    content: 'Este projeto está em construção, volte mais tarde!' 
+                                }
+                            }
+                        }
                     }
                 },
-                'imagemfofa.jpg': { type: 'file' },
-                'DiariodoDev.txt': { type: 'file' }
+                'imagemFofa.jpg': { 
+                    type: 'file', 
+                    hidden: false, 
+                    content: '<img src="/pictures/imagemfofa.webp" class="photo">' 
+                },
+                'DiariodoDev.txt': { 
+                    type: 'file', 
+                    hidden: false, 
+                    content: 'No primeiro dia, eu desisti. No segundo dia, eu desisti de desistir. No terceiro dia, eu desisti de desistir de desistir. Mas no quarto dia, eu desisti de desistir de desistir de desistir.' 
+                }
             }
         }
     };
@@ -84,10 +107,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             case 'ls':
                 const pathParts = currentPath.replace('~', '').split('/').filter(p => p);
-                let currentDir = fileSystem['~'];
+                let currentDir = fileSystem['~']; // Variáveis usadas para navegar no filesystem simulado
                 try {
                     if (parts[1]==="-a") {
                         pathParts.forEach(part => {
+                            /*Para inodes visǘeis*/
                         if (currentDir.children && currentDir.children[part] && currentDir.children[part].type === 'directory') {
                             currentDir = currentDir.children[part];
                         } else {
@@ -95,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     });
                     }
+                    //Para inodes ocultos
                     else{
                         pathParts.forEach(part => {
                         if (currentDir.children && currentDir.children[part] && currentDir.children[part].type === 'directory'&& currentDir.children[part].hidden) {
@@ -104,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     });
                     }
+                    // Lista os arquivos e diretórios no caminho atual
                     const items = Object.keys(currentDir.children);
                     if (items.length === 0) {
                         output.textContent = '';
@@ -125,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 break;
             case 'cd':
+                //Lógica para mudar de diretório
                 const targetDir = args[0] || '~';
                  if (targetDir === '..') {
                     if (currentPath !== '~') {
@@ -159,6 +186,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="cyan">cd [dir]</span> - Navega entre diretórios.<br>
                 <span class="cyan">clear</span> - Limpa o histórico do terminal.<br>
                 <span class="cyan">help</span> - Mostra esta ajuda.`;
+                break;
+            case 'cat':
+                const fileName = args[0];
+                if (!fileName) {
+                    output.textContent = 'cat: arquivo não especificado';
+                    break;
+                }
+                try {
+                    const pathParts = currentPath.replace('~', '').split('/').filter(p => p);
+                    let currentDir = fileSystem['~'];
+                    pathParts.forEach(part => {
+                        if (currentDir.children && currentDir.children[part] && currentDir.children[part].type === 'directory') {
+                            currentDir = currentDir.children[part];
+                        } else {
+                            throw new Error(`Nenhum inode encontrado em ${part}`);
+                        }
+                    });
+                    if (currentDir.children && currentDir.children[fileName] && currentDir.children[fileName].type === 'file') {
+                        const file = currentDir.children[fileName];
+                        //Lista tanto texto, como imagens
+                        output.innerHTML = file.content;
+                    } else {
+                        output.textContent = `cat: arquivo não encontrado: ${fileName}`;
+                    }
+                } catch (e) {
+                    output.textContent = `cat: ${e.message}`;
+                }
                 break;
             default:
                 output.textContent = `Comando não encontrado: ${cmd}. Digite 'help' para ver a lista de comandos.`;
