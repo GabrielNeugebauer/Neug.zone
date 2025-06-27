@@ -3,6 +3,7 @@ body {
     min-height: 100vh;*/
     background-color: #1a2f38;
     color: white;
+    font-family: 'Courier New', Courier, monospace;
 }/*Degradê Bonitin*//*Esquece o degradê, o campo de input do js quebrava o layout*/
 .cyan {
     color: cyan;
