@@ -109,45 +109,60 @@ document.addEventListener('DOMContentLoaded', function() {
                 const pathParts = currentPath.replace('~', '').split('/').filter(p => p);
                 let currentDir = fileSystem['~']; // Variáveis usadas para navegar no filesystem simulado
                 try {
-                    if (parts[1]==="-a") {
+                    if (parts[1] === "-a") {
                         pathParts.forEach(part => {
-                            /*Para inodes visǘeis*/
-                        if (currentDir.children && currentDir.children[part] && currentDir.children[part].type === 'directory') {
-                            currentDir = currentDir.children[part];
-                        } else {
-                            throw new Error(`Nenhum inode encontrado em ${part}`);
-                        }
-                    });
-                    }
-                    //Para inodes ocultos
-                    else{
-                        pathParts.forEach(part => {
-                        if (currentDir.children && currentDir.children[part] && currentDir.children[part].type === 'directory'&& currentDir.children[part].hidden) {
-                            currentDir = currentDir.children[part];
-                        } else {
-                            throw new Error(`Nenhum inode encontrado em ${part}`);
-                        }
-                    });
-                    }
-                    // Lista os arquivos e diretórios no caminho atual
-                    const items = Object.keys(currentDir.children);
-                    if (items.length === 0) {
-                        output.textContent = '';
-                    } else {
-                         items.forEach(item => {
-                            const itemEl = document.createElement('span');
-                            if (currentDir.children[item].type === 'directory') {
-                                itemEl.classList.add('directory');
-                                itemEl.textContent = `${item}/`;
+                            if (currentDir.children && currentDir.children[part] && currentDir.children[part].type === 'directory') {
+                                currentDir = currentDir.children[part];
                             } else {
-                                itemEl.textContent = item;
+                                throw new Error(`Nenhum inode encontrado em ${part}`);
                             }
-                            itemEl.style.marginRight = '15px';
-                            output.appendChild(itemEl);
                         });
+                        // Lista todos os arquivos e diretórios, inclusive ocultos
+                        const items = Object.keys(currentDir.children);
+                        if (items.length === 0) {
+                            output.textContent = '';
+                        } else {
+                            items.forEach(item => {
+                                const itemEl = document.createElement('span');
+                                if (currentDir.children[item].type === 'directory') {
+                                    itemEl.classList.add('directory');
+                                    itemEl.textContent = `${item}/`;
+                                } else {
+                                    itemEl.textContent = item;
+                                }
+                                itemEl.style.marginRight = '15px';
+                                output.appendChild(itemEl);
+                            });
+                        }
+                    } else {
+                        pathParts.forEach(part => {
+                            if (currentDir.children && currentDir.children[part] && currentDir.children[part].type === 'directory') {
+                                currentDir = currentDir.children[part];
+                            } else {
+                                throw new Error(`Nenhum inode encontrado em ${part}`);
+                            }
+                        });
+                        // Lista apenas arquivos/diretórios não ocultos
+                        const items = Object.keys(currentDir.children)
+                            .filter(item => !currentDir.children[item].hidden);
+                        if (items.length === 0) {
+                            output.textContent = '';
+                        } else {
+                            items.forEach(item => {
+                                const itemEl = document.createElement('span');
+                                if (currentDir.children[item].type === 'directory') {
+                                    itemEl.classList.add('directory');
+                                    itemEl.textContent = `${item}/`;
+                                } else {
+                                    itemEl.textContent = item;
+                                }
+                                itemEl.style.marginRight = '15px';
+                                output.appendChild(itemEl);
+                            });
+                        }
                     }
                 } catch (e) {
-                     output.textContent = `ls: ${e.message}`;
+                    output.textContent = `ls: ${e.message}`;
                 }
                 break;
             case 'cd':
